@@ -42,7 +42,7 @@ securityContext: {}
 service:
   name: hello-world-nodejs
   type: LoadBalancer
-  port: 80
+  port: 5000
 
 ingress:
   enabled: false
@@ -74,8 +74,8 @@ resources: {}
 
 readinessProbe:
   httpGet:
-    path: /healthz # Ruta para el endpoint de readiness
-    port: http     # Puerto en el que escucha la app
+    path: / # Ruta para el endpoint de readiness
+    port: 5000     # Puerto en el que escucha la app
   initialDelaySeconds: 5 # Retraso inicial antes del sondeo
   periodSeconds: 10 # Frecuencia del sondeo
   timeoutSeconds: 5  # Tiempo de espera entre cada sonda

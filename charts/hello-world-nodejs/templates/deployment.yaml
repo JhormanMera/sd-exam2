@@ -1,5 +1,5 @@
-apiVersion: apps/v1
-kind: RepplicationController
+apiVersion: v1
+kind: ReplicationController
 metadata:
   name: {{ include "hello-world-nodejs.fullname" . }}
   labels:
@@ -8,9 +8,6 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
-  selector:
-    matchLabels:
-      {{- include "hello-world-nodejs.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -40,8 +37,6 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
-          livenessProbe:
-            {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
